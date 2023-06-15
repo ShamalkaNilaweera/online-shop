@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 @RequestMapping(path = "/api/v1/products")
 public class ProductController {
 
@@ -43,7 +44,7 @@ public class ProductController {
     @GetMapping(path = "/products")
     public ResponseEntity<?> getProducts (){
         try {
-            List<Product> products = productService.getProducts();
+            List<ProductCatalogue> products = productService.getProducts();
             return ResponseEntity.status(HttpStatus.OK).body(products);
         }catch (Exception exception){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception);

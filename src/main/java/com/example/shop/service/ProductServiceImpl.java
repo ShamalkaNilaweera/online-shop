@@ -1,6 +1,7 @@
 package com.example.shop.service;
 
 import com.example.shop.exception.ResourceNotFoundException;
+import com.example.shop.repository.ProductCatelogueRepository;
 import com.example.shop.repository.ProductRepository;
 import com.example.shop.repository.model.Product;
 import com.example.shop.repository.model.ProductCatalogue;
@@ -18,7 +19,8 @@ public class ProductServiceImpl implements ProductService{
 
     @Autowired
     ProductRepository productRepository;
-
+    @Autowired
+    ProductCatelogueRepository productCatelogueRepository;
     @Autowired
     ProductCatalogueFilterCriteria productCatalogueCriteria;
     ModelMapper modelMapper;
@@ -35,8 +37,8 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public List<Product> getProducts() {
-        List<Product> products = productRepository.findAll();
+    public List<ProductCatalogue> getProducts() {
+        List<ProductCatalogue> products = productCatelogueRepository.findAll();
         if (products.isEmpty()){
             throw new ResourceNotFoundException("No products found");
         }else {

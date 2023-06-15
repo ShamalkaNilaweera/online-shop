@@ -11,7 +11,7 @@ import java.util.List;
 public interface ProductService {
     Product insertProduct(CreateProductModel createProductModel);
 
-    List<Product> getProducts();
+    List<ProductCatalogue> getProducts();
 
     Product deleteProduct(Integer productId);
 
