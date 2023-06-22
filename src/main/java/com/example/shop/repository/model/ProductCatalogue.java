@@ -20,12 +20,15 @@ public class ProductCatalogue {
     @Column(name = "Product_Name")
     private String productName;
 
-    @Column(name = "Product_Price")
-    private Integer productPrice;
+    @Column(name = "Price")
+    private Double productPrice;
 
-    @Column(name = "Color_Name")
-    private String colorName;
+    @Column(name = "Color")
+    private String color;
 
     @Column(name = "Quantity")
     private Integer quantity;
+
+    @Column(name = "Size")
+    private String size;
 }

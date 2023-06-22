@@ -1,5 +1,6 @@
 package com.example.shop.repository.model;
 
+import com.example.shop.enums.Size;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,7 +22,20 @@ public class Product {
     @Basic(optional = false)
     private String productName;
 
-    @Column(name = "Product_Price")
+    @Column(name = "Price")
     @Basic(optional = false)
-    private Integer productPrice;
+    private Integer price;
+
+    @Column(name = "Material")
+    @Basic(optional = false)
+    private String material;
+
+    @Column(name = "Size")
+    @Basic(optional = false)
+    @Enumerated
+    private Size size;
+
+    @ManyToOne
+    @Basic(optional = false)
+    private Color color;
 }

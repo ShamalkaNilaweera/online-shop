@@ -11,23 +11,19 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-@Table(name = "color_category")
-public class ColorCategory {
+@Table(name = "color")
+public class Color {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "Color_Id")
     private Integer colorId;
 
-    @JoinColumn(name = "Product_Id", referencedColumnName = "Product_Id")
-    @ManyToOne(optional = false)
-    private Product productId;
-
     @Column(name = "Color_Name")
     @Basic(optional = false)
-    private Integer colorName;
+    private String color;
 
-    @Column(name = "Quantity")
-    @Basic(optional = false)
-    private Integer quantity;
+    public Color(String colorName){
+        this.color=colorName;
+    }
 }
