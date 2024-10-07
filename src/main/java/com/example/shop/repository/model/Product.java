@@ -1,7 +1,8 @@
 package com.example.shop.repository.model;
 
 import com.example.shop.enums.Size;
-import jakarta.persistence.*;
+import javax.persistence.*;
+
 import lombok.*;
 
 @AllArgsConstructor

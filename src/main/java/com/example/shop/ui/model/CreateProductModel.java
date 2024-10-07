@@ -2,10 +2,7 @@ package com.example.shop.ui.model;
 
 import com.example.shop.enums.Size;
 import com.example.shop.repository.model.Color;
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.ManyToOne;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

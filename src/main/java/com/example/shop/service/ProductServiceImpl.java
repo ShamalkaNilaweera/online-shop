@@ -1,13 +1,10 @@
 package com.example.shop.service;
 
 import com.example.shop.exception.ResourceNotFoundException;
-import com.example.shop.repository.ProductCatelogueRepository;
-import com.example.shop.repository.ProductRepository;
+import com.example.shop.repository.*;
 import com.example.shop.repository.model.Product;
 import com.example.shop.repository.model.ProductCatalogue;
-import com.example.shop.ui.model.CreateProductModel;
-import com.example.shop.ui.model.FilterProductsModel;
-import com.example.shop.ui.model.UpdateProductModel;
+import com.example.shop.ui.model.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +45,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product deleteProduct(Integer productId) {
-        if (!productRepository.findById(productId).isEmpty()){
+        if (productRepository.findById(productId).isPresent()){
             Product product = productRepository.findById(productId).get();
             productRepository.delete(product);
             return product;
@@ -59,7 +56,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product updateProduct(UpdateProductModel updateProductModel) {
-        if (!productRepository.findById(updateProductModel.getProductId()).isEmpty()){
+        if (productRepository.findById(updateProductModel.getProductId()).isPresent()){
             Product product = productRepository.findById(updateProductModel.getProductId()).get();
             modelMapper.map(updateProductModel , product);
             productRepository.save(product);
