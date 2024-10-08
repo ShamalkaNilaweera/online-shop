@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin("http://localhost:3000")
 @RequestMapping(path = "/api/v1/colors")
@@ -23,6 +25,18 @@ public class ColorController {
         try {
             Color color = colorService.insertColor(colorName);
             return ResponseEntity.status(HttpStatus.OK).body(color);
+        }catch (Exception exception){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception);
+        }
+    }
+
+    @Operation(summary = "Get all colors")
+    @ApiResponse(responseCode = "200", description = "Retrieved all colors successfully")
+    @GetMapping()
+    public ResponseEntity<?> getColors (){
+        try {
+            List<Color> colors = colorService.getColors();
+            return ResponseEntity.status(HttpStatus.OK).body(colors);
         }catch (Exception exception){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception);
         }

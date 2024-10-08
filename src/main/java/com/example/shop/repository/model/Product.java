@@ -36,6 +36,10 @@ public class Product {
     @Enumerated
     private Size size;
 
+    @Column(name = "Quantity")
+    @Basic(optional = false)
+    private Integer quantity;
+
     @ManyToOne
     @Basic(optional = false)
     private Color color;
