@@ -2,6 +2,7 @@ package com.example.shop.service;
 
 import com.example.shop.exception.ResourceNotFoundException;
 import com.example.shop.repository.*;
+import com.example.shop.repository.model.Color;
 import com.example.shop.repository.model.Product;
 import com.example.shop.repository.model.ProductCatalogue;
 import com.example.shop.ui.model.*;
@@ -18,6 +19,9 @@ public class ProductServiceImpl implements ProductService{
     ProductRepository productRepository;
     @Autowired
     ProductCatelogueRepository productCatelogueRepository;
+
+    @Autowired
+    ColorRepository colorRepository;
     @Autowired
     ProductCatalogueFilterCriteria productCatalogueCriteria;
     ModelMapper modelMapper;
@@ -25,11 +29,17 @@ public class ProductServiceImpl implements ProductService{
     public ProductServiceImpl(){
         modelMapper =  new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT).setSkipNullEnabled(true);
+        modelMapper.typeMap(CreateProductModel.class, Product.class)
+                .addMappings(mapper -> mapper.skip(Product::setColor));
     }
 
     @Override
     public Product insertProduct(CreateProductModel createProductModel) {
-        Product newProduct = productRepository.save(modelMapper.map(createProductModel, Product.class));
+        System.out.println(createProductModel.getColorId());
+        Product newProduct = modelMapper.map(createProductModel, Product.class);
+        Color color = colorRepository.findById(createProductModel.getColorId()).get();
+        newProduct.setColor(color);
+        productRepository.save(newProduct);
         return newProduct;
     }
 

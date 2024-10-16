@@ -40,6 +40,7 @@ public class Product {
     @Basic(optional = false)
     private Integer quantity;
 
+    @JoinColumn(name = "Color_Id", referencedColumnName = "Color_Id")
     @ManyToOne
     @Basic(optional = false)
     private Color color;

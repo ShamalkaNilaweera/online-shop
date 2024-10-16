@@ -24,5 +24,5 @@ public class CreateProductModel {
 
     private Integer quantity;
 
-    private Color color;
+    private Integer colorId;
 }
