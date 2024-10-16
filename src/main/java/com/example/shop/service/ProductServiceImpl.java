@@ -35,7 +35,6 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product insertProduct(CreateProductModel createProductModel) {
-        System.out.println(createProductModel.getColorId());
         Product newProduct = modelMapper.map(createProductModel, Product.class);
         Color color = colorRepository.findById(createProductModel.getColorId()).get();
         newProduct.setColor(color);
