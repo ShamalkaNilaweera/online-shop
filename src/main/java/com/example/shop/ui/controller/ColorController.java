@@ -2,6 +2,7 @@ package com.example.shop.ui.controller;
 
 import com.example.shop.repository.model.Color;
 import com.example.shop.service.ColorService;
+import com.example.shop.ui.model.ColorModel;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,42 @@ public class ColorController {
         try {
             List<Color> colors = colorService.getColors();
             return ResponseEntity.status(HttpStatus.OK).body(colors);
+        }catch (Exception exception){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception);
+        }
+    }
+
+    @Operation(summary = "Delete a color")
+    @ApiResponse(responseCode = "200", description = "Deleted a color successfully")
+    @DeleteMapping(path = "/deleteColor/{colorId}")
+    public ResponseEntity<?> deleteColor (@PathVariable Integer colorId){
+        try {
+            Integer color = colorService.deleteColor(colorId);
+            return ResponseEntity.status(HttpStatus.OK).body(color);
+        }catch (Exception exception){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception);
+        }
+    }
+
+    @Operation(summary = "Get a color")
+    @ApiResponse(responseCode = "200", description = "Retrieved a color successfully")
+    @GetMapping(path = "/{colorId}")
+    public ResponseEntity<?> getColor (@PathVariable Integer colorId){
+        try {
+            Color color = colorService.getColor(colorId);
+            return ResponseEntity.status(HttpStatus.OK).body(color);
+        }catch (Exception exception){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception);
+        }
+    }
+
+    @Operation(summary = "Update a color")
+    @ApiResponse(responseCode = "200", description = "Updated a color successfully")
+    @PutMapping(path = "/updateColor")
+    public ResponseEntity<?> updateColor (@RequestBody ColorModel colorModel){
+        try {
+            Color color = colorService.updateColor(colorModel);
+            return ResponseEntity.status(HttpStatus.OK).body(color);
         }catch (Exception exception){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception);
         }
