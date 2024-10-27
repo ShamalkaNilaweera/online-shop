@@ -2,7 +2,6 @@ package com.example.shop.service;
 
 import com.example.shop.exception.ResourceNotFoundException;
 import com.example.shop.repository.*;
-import com.example.shop.repository.model.Color;
 import com.example.shop.repository.model.Product;
 import com.example.shop.repository.model.ProductCatalogue;
 import com.example.shop.ui.model.*;
@@ -12,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ProductServiceImpl implements ProductService{
 
@@ -81,6 +82,17 @@ public class ProductServiceImpl implements ProductService{
             throw new ResourceNotFoundException("No products found!");
         }else {
             return products;
+        }
+    }
+
+    @Override
+    public Product getProduct(Integer productId) {
+        Optional<Product> product = productRepository.findById(productId);
+        if (product.isPresent()){
+            return product.get();
+        }else {
+            //TODO
+            return null;
         }
     }
 }

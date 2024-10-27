@@ -86,4 +86,16 @@ public class ProductController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception);
         }
     }
+
+    @Operation(summary = "Get a product")
+    @ApiResponse(responseCode = "200", description = "Retrieved product successfully")
+    @GetMapping(path = "/{productId}")
+    public ResponseEntity<?> getProduct (@PathVariable Integer productId){
+        try {
+            Product product = productService.getProduct(productId);
+            return ResponseEntity.status(HttpStatus.OK).body(product);
+        }catch (Exception exception){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception);
+        }
+    }
 }

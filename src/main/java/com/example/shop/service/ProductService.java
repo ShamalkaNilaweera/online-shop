@@ -18,4 +18,6 @@ public interface ProductService {
     Product updateProduct(UpdateProductModel updateProductModel);
 
     List<ProductCatalogue> searchProduct(FilterProductsModel filterProductsModel);
+
+    Product getProduct(Integer productId);
 }
