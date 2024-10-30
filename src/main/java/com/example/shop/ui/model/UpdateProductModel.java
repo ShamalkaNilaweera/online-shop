@@ -1,5 +1,6 @@
 package com.example.shop.ui.model;
 
+import com.example.shop.enums.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,5 +15,10 @@ public class UpdateProductModel {
 
     private String productName;
 
-    private Integer productPrice;
+    private Double productPrice;
+    private Size size;
+
+    private Integer quantity;
+
+    private Integer colorId;
 }
