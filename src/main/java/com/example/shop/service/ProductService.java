@@ -5,7 +5,9 @@ import com.example.shop.repository.model.ProductCatalogue;
 import com.example.shop.ui.model.CreateProductModel;
 import com.example.shop.ui.model.FilterProductsModel;
 import com.example.shop.ui.model.UpdateProductModel;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface ProductService {
@@ -20,4 +22,6 @@ public interface ProductService {
     List<ProductCatalogue> searchProduct(FilterProductsModel filterProductsModel);
 
     Product getProduct(Integer productId);
+
+    String uploadImg(Integer productId, MultipartFile file) throws IOException;
 }

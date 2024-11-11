@@ -9,7 +9,13 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +32,8 @@ public class ProductServiceImpl implements ProductService{
     @Autowired
     ProductCatalogueFilterCriteria productCatalogueCriteria;
     ModelMapper modelMapper;
+
+    private String uploadDir = "C:/Users/User1/Desktop/C8Img";
 
     public ProductServiceImpl(){
         modelMapper =  new ModelMapper();
@@ -68,6 +76,7 @@ public class ProductServiceImpl implements ProductService{
         if (productRepository.findById(updateProductModel.getProductId()).isPresent()){
             Product product = productRepository.findById(updateProductModel.getProductId()).get();
             modelMapper.map(updateProductModel , product);
+            product.setColor(colorRepository.findById(updateProductModel.getColor()).get());
             productRepository.save(product);
             return product;
         }else {
@@ -94,5 +103,19 @@ public class ProductServiceImpl implements ProductService{
             //TODO
             return null;
         }
+    }
+
+    @Override
+    public String uploadImg(Integer productId, MultipartFile file) throws IOException {
+        Path uploadPath = Paths.get(uploadDir);
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+
+        String fileName = file.getOriginalFilename();
+        Path filePath = uploadPath.resolve(fileName);
+        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+        return filePath.toString();
     }
 }

@@ -15,10 +15,12 @@ public class UpdateProductModel {
 
     private String productName;
 
-    private Double productPrice;
+    private Double price;
     private Size size;
 
     private Integer quantity;
 
-    private Integer colorId;
+    private Integer color;
+
+    private String material;
 }

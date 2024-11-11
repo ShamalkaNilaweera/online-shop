@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -93,6 +94,18 @@ public class ProductController {
     public ResponseEntity<?> getProduct (@PathVariable Integer productId){
         try {
             Product product = productService.getProduct(productId);
+            return ResponseEntity.status(HttpStatus.OK).body(product);
+        }catch (Exception exception){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception);
+        }
+    }
+
+    @Operation(summary = "Upload a product image")
+    @ApiResponse(responseCode = "200", description = "Uploaded image successfully")
+    @PostMapping(path = "/uploadImg/{productId}")
+    public ResponseEntity<?> uploadProductImage (@PathVariable Integer productId, @RequestParam("file") MultipartFile file){
+        try {
+            String product = productService.uploadImg(productId, file);
             return ResponseEntity.status(HttpStatus.OK).body(product);
         }catch (Exception exception){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception);

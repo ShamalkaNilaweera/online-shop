@@ -28,6 +28,9 @@ spring:
           batch_size: 4
         order_inserts:  true
 
+file:
+  upload-dir: C:\Users\User1\Desktop\C8Img
+
 management:
   endpoints:
     web:
