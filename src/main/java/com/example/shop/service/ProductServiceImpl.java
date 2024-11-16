@@ -125,7 +125,6 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public Resource getProductImage(Integer productId) throws MalformedURLException {
         Path path = Paths.get(uploadDir +"/"+ productId + "-img.png");
-        // Load the resource
         Resource resource = new UrlResource(path.toUri());
         return resource;
     }
