@@ -5,9 +5,11 @@ import com.example.shop.repository.model.ProductCatalogue;
 import com.example.shop.ui.model.CreateProductModel;
 import com.example.shop.ui.model.FilterProductsModel;
 import com.example.shop.ui.model.UpdateProductModel;
+import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 
 public interface ProductService {
@@ -24,4 +26,6 @@ public interface ProductService {
     Product getProduct(Integer productId);
 
     String uploadImg(Integer productId, MultipartFile file) throws IOException;
+
+    Resource getProductImage(Integer productId) throws MalformedURLException;
 }

@@ -8,10 +8,13 @@ import com.example.shop.ui.model.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -117,5 +120,13 @@ public class ProductServiceImpl implements ProductService{
         Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
         return filePath.toString();
+    }
+
+    @Override
+    public Resource getProductImage(Integer productId) throws MalformedURLException {
+        Path path = Paths.get(uploadDir +"/"+ productId + "-img.png");
+        // Load the resource
+        Resource resource = new UrlResource(path.toUri());
+        return resource;
     }
 }

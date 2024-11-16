@@ -12,6 +12,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.hibernate.annotations.OptimisticLock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -107,6 +109,21 @@ public class ProductController {
         try {
             String product = productService.uploadImg(productId, file);
             return ResponseEntity.status(HttpStatus.OK).body(product);
+        }catch (Exception exception){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception);
+        }
+    }
+
+    @Operation(summary = "Get product image")
+    @ApiResponse(responseCode = "200", description = "Retrieved product image successfully")
+    @GetMapping(path = "/image/{productId}")
+    public ResponseEntity<?> getProductImage (@PathVariable Integer productId){
+        try {
+            Resource resource = productService.getProductImage(productId);
+            return ResponseEntity.ok()
+                    .contentType(MediaType.parseMediaType("application/octet-stream"))
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                    .body(resource);
         }catch (Exception exception){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception);
         }
